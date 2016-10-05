@@ -1,0 +1,37 @@
+<h2> Cat form! </h2>
+<form action=<%= cat.persisted? ? cat_url(cat) : cats_url %> method="post">
+  <% if cat.persisted?%>
+    <input name="_method" type="hidden" value="patch" />
+  <% end %>
+  <label for="name">Cat Name</label>
+  <input name="cat[name]" id="name" type="text" value=<%= cat.name %>>
+
+  <br>
+
+  <label for="date">Cat Birthdate</label>
+  <input name="cat[birth_date]" id="date" type="text" autocomplete="date" value=<%= cat.birth_date %>>
+
+  <br>
+
+  <label>Cat Color</label>
+  <select name="cat[color]" id="color" value=<%= cat.name %>>
+    <% cat.cat_colors.each do |color| %>
+      <option value=<%= color%><%= 'selected="selected"' if color == cat.color %>><%= color%></option>
+    <% end %>
+
+  </select>
+  <br>
+
+  <label>Cat Sex</label>
+  <input type="radio" name="cat[sex]" value="m" id="sex" <%= 'checked' if 'm' == cat.sex %>>M
+  <input type="radio" name="cat[sex]" value="f" id="sex" <%= 'checked' if 'f' == cat.sex %>>F
+  <br>
+
+  <label>Cat Description</label>
+  <textarea name="cat[description]" id="description"><%= cat.description %></textarea>
+  <br>
+
+
+  <input type="submit" value="Build my cat!"></input>
+
+</form>
